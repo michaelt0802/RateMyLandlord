@@ -1,0 +1,107 @@
+[[extend 'layout.html']]
+
+<style>
+[v-cloak] {
+     display: none;
+}
+a:before {
+    content: '\A';
+    white-space: pre;
+}
+</style>
+
+<center><img src="https://i.ibb.co/fXBWB6c/Screen-Shot-2021-05-09-at-8-23-10-PM.png" width="50%"></center>
+
+<div class="section" id="vue-target" v-cloak>
+  <div class="control block">
+    <!--<h2 class="subtitle is-5 has-text-centered" style="font-family:Gill Sans; color:rgb(93, 97, 102)">Not sure if you should rent that place? Search to find out!</h2>-->
+    <input class="input is-rounded" type="text" placeholder="Landlord's Name / Location" style="font-family:Gill Sans"
+           v-model="query" @keyup="search">
+
+    <!--<button v-on:click="search">Search</button>-->
+    
+  </div>
+
+  <div v-for="r in rows">
+    <a @click="goto_lord(r._idx)">{{r.first_name}} {{r.last_name}}</a>
+  </div>
+
+  <div v-if="not_found == 'True'">
+    <p>
+      unknown {{not_found}}{{rows}}
+    </p>
+  </div>
+
+  <!-- <div class="vars">
+      [[=message]]
+  </div> -->
+</div>
+
+<div class="section">
+  <div class="columns">
+    <div class="column" >
+      <div class="box">
+        <p class="title is-3" style="text-align:center;">
+          [[=example_landlord1_name]]
+        </p>
+        <p style="text-align:right;">
+          <strong>Overall rating: [[=rows1.reviews_score_overall]]/10</strong>
+        </p>
+        <p>
+          [[=rows1.reviews_contents]]
+        </p>
+        <div class="block" style="float: right">
+          <a href="[[=URL('reviews', example_landlord1_id)]]">
+            Go to review: 
+          <span class="icon">
+            <i class="fas fa-arrow-right"></i>
+          </span>
+          </a>
+      </div>
+      </div>
+  </div>
+  
+  <div class="column">
+    <div class="box">
+      <p class="title is-3" style="text-align:center;">
+        [[=example_landlord2_name]]
+      </p>
+      <p style="text-align:right;">
+        <strong>Overall rating: [[=rows2.reviews_score_overall]]/10</strong>
+      </p>
+      <p>
+        [[=rows2.reviews_contents]]
+      </p>
+      <div class="block" style="float: right">
+        <a href="[[=URL('reviews', example_landlord1_id)]]">
+          Go to review: 
+        <span class="icon">
+          <i class="fas fa-arrow-right"></i>
+        </span>
+        </a>
+    </div>
+    </div>
+  </div>
+</div>
+  
+  
+  
+
+  
+  <!--
+  <img src="https://i.ibb.co/vsFBVRy/Screen-Shot-2021-05-09-at-10-24-31-PM.png" width="40%" align="left">
+  <img src="https://i.ibb.co/7vwH71Y/Screen-Shot-2021-05-09-at-10-27-52-PM.png" width="40%" align="right">
+  -->
+  <br>
+</div>
+
+[[block page_scripts]]
+<!-- Loads the index-specific js for Vue -->
+<script>
+  let search_url = "[[=XML(search_url)]]";
+  let get_search_url_url = "[[=XML(get_search_url_url)]]";
+  let load_reviews_url = "[[=XML(load_reviews_url)]]";
+  let add_landlord_url = "[[=XML(add_landlord_url)]]";
+</script>
+<script src="js/index.js"></script>
+[[end]]

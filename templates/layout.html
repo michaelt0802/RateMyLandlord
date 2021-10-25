@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="[[=URL('static')]]/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAAQEAAAEAIAAwAAAAFgAAACgAAAABAAAAAgAAAAEAIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAA=="/>
+    <link rel="stylesheet" href="css/no.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <style>.py4web-validation-error{margin-top:-16px; font-size:0.8em;color:red}</style>
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd17lZuOHyWRp3Kf2q8czP8pjtJSy7wHA&libraries=places"></script> -->
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd17lZuOHyWRp3Kf2q8czP8pjtJSy7wHA&libraries=places"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    [[block page_head]]<!-- individual pages can customize header here -->[[end]]
+  </head>
+  <body onLoad="initialize()">
+    <header class="has-background-primary">
+      <!-- Navigation bar -->
+      <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="[[=URL('index')]]">
+            <h1 class="title" style="font-family:'Gill Sans', sans-serif; color:seashell"><img src="https://i.ibb.co/Nj025mW/con-left-copy.png">RateMyLandlord</h1>
+          </a>
+      
+          
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              [[if globals().get('user'):]]
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link is-primary">
+                    [[=globals().get('user').get('email')]]
+                  </a>
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item" href="[[=URL('dashboard_user')]]">Dashboard</a>
+                    <a class="navbar-item" href="[[=URL('auth/change_password')]]">Change Password</a></li>
+                    <a class="navbar-item" href="[[=URL('auth/logout')]]">Logout</a>
+                  </div>
+                </div>
+                [[else:]]
+                <div class="buttons">
+                  <a class="button is-primary is-active is-rounded" href="[[=URL('auth/register')]]" style="font-family:'Gill Sans', sans-serif">
+                    Sign up
+                  </a>
+                  <a class="button is-light is-rounded" href="[[=URL('auth/login')]]" style="font-family:'Gill Sans', sans-serif">
+                    Log in
+                  </a>
+                </div>
+                [[pass]]
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+
+    </header>
+    <!-- beginning of HTML inserted by extending template -->
+    <center>
+      <div>
+        <!-- Flash alert messages, first optional one in data-alert -->
+        <flash-alerts class="padded" data-alert="[[=globals().get('flash','')]]"></flash-alerts>
+      </div>
+      <main class="padded">
+        <!-- contect injected by extending page -->
+        [[include]]
+      </main>
+    </center>
+    <!-- end of HTML inserted by extending template -->
+    <footer class="has-background-info padded">
+      <p>
+      </p>
+    </footer>
+  </body>
+  <!-- You've gotta have utils.js -->
+  <script src="js/utils.js"></script>
+  <script src="js/sugar.min.js"></script>
+  <script src="js/axios.min.js"></script>
+  <script src="js/vue.js"></script>
+  [[block page_scripts]]<!-- individual pages can add scripts here -->[[end]]
+</html>

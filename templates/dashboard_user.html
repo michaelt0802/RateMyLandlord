@@ -1,0 +1,79 @@
+[[extend 'layout.html']]
+<style>
+  [v-cloak] {
+       display: none;
+  }
+
+  /* a { color: inherit; }  */
+</style>
+
+<div class="section" id="vue-target" v-cloak>
+  <div class="section">
+
+    <div class="columns">
+        <div class="column">
+          <h1 class="title" style="text-align: center;">Dashboard</h1>
+          <div class="columns is-mobile">
+            <div class="column">
+              <p class="bd-notification is-info" style="text-align: center;">Name: [[=username]]</p>
+            </div>
+            <div class="column">
+              <p class="bd-notification is-info" style="text-align: center;">Email: [[=email]]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <h1 class=" title is-4" style="text-align: center;">Your Reviews</h1>
+
+      <!--Each review is a section-->
+      <div class="section has-background-info-light block" v-if="r.renter_email == '[[=globals().get('user').get('email')]]'" v-for="r in rows.slice().reverse()">
+        <div class="columns is-mobile is-gapless is-vcentered">
+          <!-- <a :href="r.url"> -->
+            <div class="column is-one-fifth">
+                
+              <span class="title p-5 is-italic" style="font-family:'Gill Sans', sans-serif"><u>{{r.reviews_score_overall}}</u></span>
+
+            </div>
+            <div class="column">
+                <span class="p-3">Landlord name: <strong>{{r.landlord_name}}</strong></span><br />
+                <span class="p-3">Property: <strong>{{r.reviews_property_address}}</strong></span><br />
+                <span class="p-3">Responsiveness: <strong>{{r.reviews_score_responsiveness}}/10</strong></span>
+                <span class="p-3">Friendliness: <strong>{{r.reviews_score_friendliness}}/10</strong></span>
+               <!-- <span class="p-3">Would Rent Again: <strong>Yes</strong></span> --> 
+               
+                <div class="section">
+                  <p>{{r.reviews_contents}}</p>
+                  <br>
+                  <button @click="delete_post(r._idx)" class="button is-danger" v-if="r.renter_email == '[[=globals().get('user').get('email')]]'" style="float: right;">
+                      <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+                <div class="block" style="float: right">
+                  <a :href="r.url">
+                    Go to review: 
+                  <span class="icon">
+                    <i class="fas fa-arrow-right"></i>
+                  </span>
+                  </a>
+              </div>
+                </div>
+            </div>
+            <!-- <a> -->
+        </div>
+    </div>
+  </div>
+
+</div>
+
+
+[[block page_scripts]]
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd17lZuOHyWRp3Kf2q8czP8pjtJSy7wHA&libraries=places"></script>
+<script>
+    let load_reviews_url = "[[=XML(load_reviews_url)]]";
+    let delete_reviews_url = "[[=XML(delete_reviews_url)]]";
+</script>
+<script src="js/dashboard_user.js"></script>
+[[end]]
